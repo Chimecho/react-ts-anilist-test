@@ -10,12 +10,13 @@ export interface AniListItem {
   },
   title: {
     english?: string,
-    romaji: string
+    romaji?: string
+    native: string
   }
 }
 
 export interface FavedItemsMap {
-  [key: string]: AniListItem
+  [key: number]: AniListItem
 }
 
 export interface CancellableRequest<T> {

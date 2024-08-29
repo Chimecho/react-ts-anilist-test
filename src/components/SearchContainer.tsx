@@ -24,8 +24,7 @@ export default function SearchContainer({ className, favedMap, toggleFav }: {
     <div className={className}>
       <SearchBar value={query} isLoading={isFetching} onChange={setQuery} />
       
-      { query ?
-        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4 ${data?.media.length || !isFetching ? 'mt-4' : ''} ${isFetching ? 'pointer-events-none opacity-50' : ''}`}>
+      <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4 ${data?.media.length || !isFetching ? 'mt-4' : ''} ${isFetching ? 'pointer-events-none opacity-50' : ''}`}>
         {
           (!isFetching && error) ? 'Error while fetching data' :
           (!isFetching && !data?.media.length) ? 'No data' :
@@ -40,7 +39,6 @@ export default function SearchContainer({ className, favedMap, toggleFav }: {
           )
         }
       </div>
-      : ''}
     </div>
   )
 }

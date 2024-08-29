@@ -25,7 +25,7 @@ interface PageResult {
 }
 
 const call = (params: Params): CancellableRequest<PageEntry> => {
-  const { page = 0, perPage = 30, query } = params
+  const { page = 1, perPage = 30, query } = params
 
   const queryClient = useQueryClient()
 
@@ -49,13 +49,14 @@ const call = (params: Params): CancellableRequest<PageEntry> => {
               }
               title {
                 english,
-                romaji
+                romaji,
+                native
               }
             }
           }
         },
       `,
-      variables: { page, perPage, search: query },
+      variables: { page, perPage, search: (query || '').trim() || null },
       signal
     })
 

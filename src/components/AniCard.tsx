@@ -11,7 +11,7 @@ interface AniCardProps {
 }
 
 export default function AniCard ({ item, isFav, toggleFav }: AniCardProps) {
-  const title = item.title.english || item.title.romaji
+  const title = item.title.english || item.title.romaji || item.title.native
 
   return (
     <div className='flex md:flex-col border border-gray-700 rounded-sm'>
@@ -28,7 +28,7 @@ export default function AniCard ({ item, isFav, toggleFav }: AniCardProps) {
       </div>
       <div className='bg-neutral-900 p-2.5 text-sm flex-grow space-y-4 max-h-full max-h-80 md:max-h-56 flex flex-col overflow-hidden'>
         <div className='flex max-w-full justify-between items-center space-x-2'>
-          <div className='text-base truncate max-w-full flex-shrink' title={title}>{title}</div>
+          <div className='text-base truncate max-w-full flex-shrink' title={item.title.native}>{title}</div>
           <button className='p-2 flex-shrink-0 cursor-pointer' onClick={() => toggleFav()}>
             {isFav ? <FaStar className='text-yellow-500' /> : <FaRegStar />}
           </button>

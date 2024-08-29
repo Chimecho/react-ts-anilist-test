@@ -22,20 +22,33 @@ export default function Test() {
 
   const toggleFav = (item: AniListItem) => {
     if (favedMap.hasOwnProperty(item.id)) {
-      const clone = {...favedMap}
+      const clone: FavedItemsMap = {...favedMap}
       delete clone[item.id]
       setFavedMap(clone)
     } else {
-      setFavedMap({...favedMap, [item.id]: item})
+      const modified = {...favedMap, [item.id]: item}
+      setFavedMap(modified)
     }
   }
 
   return (
     <QueryClientProvider client={queryClient}>
       <main className='flex min-h-screen flex-col p-10 bg-neutral-800 -space-y-px'>
-      <div className='flex space-x-1'>
-        <Button disabled={currentTab === MainTabs.Search} onClick={() => setCurrentTab(MainTabs.Search)}>Search</Button>
-        <Button disabled={currentTab === MainTabs.Faved} onClick={() => setCurrentTab(MainTabs.Faved)}>Faved</Button>
+      <div className='flex space-x-2'>
+        <Button
+          disabled={currentTab === MainTabs.Search}
+          onClick={() => setCurrentTab(MainTabs.Search)}
+          className='min-w-32'
+        >
+          All
+        </Button>
+        <Button
+          disabled={currentTab === MainTabs.Faved}
+          onClick={() => setCurrentTab(MainTabs.Faved)}
+          className='min-w-32'
+        >
+          Faved
+        </Button>
       </div>
 
       <div className='border border-gray-600 p-4 flex flex-col'>
