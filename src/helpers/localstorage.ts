@@ -16,10 +16,8 @@ export class GenericStore<T> {
       return defaultValue
     }
 
-    console.log(key, 'try to get from store')
     if (window.localStorage.hasOwnProperty(key)) {
       const item = window.localStorage.getItem(key)
-      console.log(key, 'real get from store: ', item)
       return this._reader(item)
     } else {
       return defaultValue
