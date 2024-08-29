@@ -1,5 +1,15 @@
 import { UseQueryResult } from "react-query"
 
+interface CharacterNode {
+  id: number,
+  name: {
+    full: string
+  },
+  image: {
+    medium?: string
+  }
+}
+
 export interface AniListItem {
   id: number,
   description: string,
@@ -12,6 +22,17 @@ export interface AniListItem {
     english?: string,
     romaji?: string
     native: string
+  },
+  episodes: number,
+  startDate: {
+    year: number
+  },
+  status: 'FINISHED' | 'RELEASING' | 'NOT_YET_RELEASED' | 'CANCELED' | 'HIATUS',
+  endDate: {
+    year: number
+  },
+  characters: {
+    nodes: [CharacterNode]
   }
 }
 

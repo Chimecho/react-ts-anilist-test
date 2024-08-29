@@ -51,6 +51,25 @@ const call = (params: Params): CancellableRequest<PageEntry> => {
                 english,
                 romaji,
                 native
+              },
+              episodes,
+              startDate {
+                year
+              },
+              status,
+              endDate {
+                year
+              },
+              characters {
+                nodes {
+                  id,
+                  name {
+                    full
+                  },
+                  image {
+                    medium
+                  }
+                }
               }
             }
           }
