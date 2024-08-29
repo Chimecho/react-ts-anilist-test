@@ -17,8 +17,9 @@ export default function AniCard ({ item }: AniCardProps) {
           alt={title}
           width={0}
           height={0}
-          layout='fill'
-          objectFit='contain'
+          fill
+          className='object-contain'
+          sizes='50vw'
         />
       </div>
       <div className='bg-neutral-900 p-2.5 text-sm flex-grow space-y-4 max-h-full max-h-80 md:max-h-56 flex flex-col overflow-hidden'>

@@ -9,7 +9,7 @@ import { useQuery } from 'react-query'
 export default function SearchContainer() {
   const [query, setQuery] = useState('')
 
-  const { data, error, isLoading, refetch } = useSearchPaginated({ query })
+  const { data, error, isFetching, refetch } = useSearchPaginated({ query })
 
   useEffect(() => {
     refetch()
@@ -17,7 +17,7 @@ export default function SearchContainer() {
 
   return (
     <>
-      <SearchBar value={query} onChange={setQuery} />
+      <SearchBar value={query} isLoading={isFetching} onChange={setQuery} />
 
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4'>
         {data?.media.map(item => (<AniCard key={item.id} item={item} />))}

@@ -1,16 +1,17 @@
-import { FaSearch, FaTimes } from 'react-icons/fa'
+import { FaSearch, FaTimes, FaSpinner } from 'react-icons/fa'
 
 import debounce from 'lodash.debounce'
 import { useState, useCallback, useRef, useEffect } from 'react'
 
 interface SearchBarProps {
   value?: string,
+  isLoading?: Boolean,
   onChange?: Function
 }
 
 const DEBOUNCE_TIMEOUT = 300
 
-export default function SearchBar({ value, onChange }: SearchBarProps) {
+export default function SearchBar({ value, onChange, isLoading }: SearchBarProps) {
   const [internalQuery, setInternalQuery] = useState(value)
   
   const inputRef = useRef<HTMLInputElement>(null)
@@ -53,7 +54,7 @@ export default function SearchBar({ value, onChange }: SearchBarProps) {
       </div>
 
       {value ? <div className='absolute top-0 right-0 h-full flex items-center p-2.5 cursor-pointer' onClick={e => handleChange('')}>
-        <FaTimes />
+        {isLoading ? <FaSpinner className='animate-spin' /> : <FaTimes />}
       </div> : ''}
     </div>
   )
