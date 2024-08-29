@@ -13,9 +13,10 @@ export default function SearchContainer({ className, favedMap, toggleFav }: {
 }) {
   const [query, setQuery] = useState('')
 
-  const { data, error, isFetching, refetch } = useSearchPaginated({ query })
+  const { request: { data, error, isFetching, refetch }, canceller } = useSearchPaginated({ query })
 
   useEffect(() => {
+    canceller()
     refetch()
   }, [query, refetch])
 
@@ -24,7 +25,7 @@ export default function SearchContainer({ className, favedMap, toggleFav }: {
       <SearchBar value={query} isLoading={isFetching} onChange={setQuery} />
       
       { query ?
-        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4 ${error || data?.media.length ? 'mt-4' : ''}`}>
+        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4 ${data?.media.length || !isFetching ? 'mt-4' : ''} ${isFetching ? 'pointer-events-none opacity-50' : ''}`}>
         {
           (!isFetching && error) ? 'Error while fetching data' :
           (!isFetching && !data?.media.length) ? 'No data' :

@@ -37,7 +37,7 @@ export default function SearchBar({ value, onChange, isLoading }: SearchBarProps
 
   useEffect(() => {
     inputRef.current?.focus()
-  })
+  }, [])
 
   return (
     <div className='relative'>

@@ -1,3 +1,5 @@
+import { UseQueryResult } from "react-query"
+
 export interface AniListItem {
   id: number,
   description: string,
@@ -14,4 +16,9 @@ export interface AniListItem {
 
 export interface FavedItemsMap {
   [key: string]: AniListItem
+}
+
+export interface CancellableRequest<T> {
+  request: UseQueryResult<T>,
+  canceller: () => void
 }
