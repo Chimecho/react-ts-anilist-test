@@ -50,7 +50,7 @@ export default function AniCard ({ item, isFav, toggleFav }: AniCardProps) {
           <div>Characters:</div>
           <div className='grid grid-cols-4 md:grid-cols-2 gap-4'>
             {item.characters.nodes.map(character => (
-              <div className='flex flex-col items-center'>
+              <div key={character.id} className='flex flex-col items-center'>
                 <div className='relative w-20 h-20 rounded-full overflow-hidden'>
                   {showMoreInfo && character.image.medium ?
                     <Image

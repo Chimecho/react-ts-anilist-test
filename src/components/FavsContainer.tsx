@@ -1,19 +1,21 @@
-import { AniListItem, FavedItemsMap } from "@/api/anilist/types"
-import AniCard from "./AniCard"
 import SearchBar from "./generic/SearchBar"
+import AniCard from "./AniCard"
+import { AniListItem, FavedItemsMap } from "@/api/anilist/types"
+
+import Fuzzy from "@/helpers/fuzzy"
+
 import { useEffect, useState } from "react"
-import { Fuzzy } from "@/helpers"
 
 export default function FavsContainer({ className, favedMap, toggleFav }: {
   className?: string,
-  favedMap: FavedItemsMap,
+  favedMap?: FavedItemsMap,
   toggleFav: (item: AniListItem) => void
 }) {
   const [query, setQuery] = useState('')
   const [fuzzy, setFuzzy] = useState<Fuzzy<AniListItem>>()
   
   useEffect(() => {
-    const favedItems: AniListItem[] = Object.values(favedMap)
+    const favedItems: AniListItem[] = favedMap ? Object.values(favedMap) : []
     setFuzzy(
       new Fuzzy<AniListItem>(favedItems, ['title.english', 'title.native', 'title.romaji'])
     )
@@ -30,7 +32,7 @@ export default function FavsContainer({ className, favedMap, toggleFav }: {
           filteredItems.map(item => <AniCard
             key={item.id}
             item={item}
-            isFav={favedMap.hasOwnProperty(item.id)}
+            isFav={favedMap?.hasOwnProperty(item.id) ?? false}
             toggleFav={() => toggleFav(item)}
           />)
         : (query ? 'No matching items found' : 'No faved items yet')}

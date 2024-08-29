@@ -8,10 +8,10 @@ const QUERY_KEY = 'anilist-search-paginated'
 interface Params {
   page?: number,
   perPage?: number,
-  query: string
+  query?: string
 }
 
-interface PageEntry {
+export interface PageEntry {
   pageInfo: {
     total: number,
     currentPage: number,
@@ -80,7 +80,7 @@ const call = (params: Params): CancellableRequest<PageEntry> => {
     })
 
     return Page
-  }, { refetchOnWindowFocus: false })
+  }, { refetchOnWindowFocus: false, refetchOnMount: false })
   
   return {
     request: useQueryResult,

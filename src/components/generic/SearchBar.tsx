@@ -39,6 +39,10 @@ export default function SearchBar({ value, onChange, isLoading }: SearchBarProps
     inputRef.current?.focus()
   }, [])
 
+  useEffect(() => {
+    setInternalQuery(value)
+  }, [value])
+
   return (
     <div className='relative'>
       <input

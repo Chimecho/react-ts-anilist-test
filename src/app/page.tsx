@@ -6,8 +6,11 @@ import FavsContainer from '@/components/FavsContainer'
 
 import { AniListItem, FavedItemsMap } from '@/api/anilist/types'
 
+import { useStore } from '@/helpers/localstorage'
+
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { useState } from 'react'
+
 
 const queryClient = new QueryClient()
 
@@ -18,10 +21,10 @@ enum MainTabs {
 
 export default function Test() {
   const [currentTab, setCurrentTab] = useState(MainTabs.Search)
-  const [favedMap, setFavedMap] = useState<FavedItemsMap>({})
+  const [favedMap, setFavedMap] = useStore<FavedItemsMap>('faved-map', {})
 
   const toggleFav = (item: AniListItem) => {
-    if (favedMap.hasOwnProperty(item.id)) {
+    if (favedMap?.hasOwnProperty(item.id)) {
       const clone: FavedItemsMap = {...favedMap}
       delete clone[item.id]
       setFavedMap(clone)

@@ -1,7 +1,7 @@
 import Fuse from 'fuse.js'
 
-export class Fuzzy<T> {
-  fuseObj: Fuse<T>
+class Fuzzy<T> {
+  private fuseObj: Fuse<T>
 
   constructor (private items: T[], private keys?: string[]) {
     this.fuseObj = new Fuse<T>(
@@ -27,3 +27,5 @@ export class Fuzzy<T> {
     }
   }
 }
+
+export default Fuzzy
