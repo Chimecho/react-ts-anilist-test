@@ -11,3 +11,7 @@ export interface AniListItem {
     romaji: string
   }
 }
+
+export interface FavedItemsMap {
+  [key: string]: AniListItem
+}

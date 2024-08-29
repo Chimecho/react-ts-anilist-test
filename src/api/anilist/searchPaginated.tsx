@@ -33,7 +33,7 @@ const call = (params: Params) => {
               currentPage,
               perPage
             }
-            media (search: $search) {
+            media (search: $search, isAdult: false) {
               id
               description
               coverImage {

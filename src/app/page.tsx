@@ -4,8 +4,9 @@ import Button from '@/components/generic/Button'
 import SearchContainer from '@/components/SearchContainer'
 import FavsContainer from '@/components/FavsContainer'
 
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { AniListItem, FavedItemsMap } from '@/api/anilist/types'
 
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { useState } from 'react'
 
 const queryClient = new QueryClient()
@@ -17,6 +18,17 @@ enum MainTabs {
 
 export default function Test() {
   const [currentTab, setCurrentTab] = useState(MainTabs.Search)
+  const [favedMap, setFavedMap] = useState<FavedItemsMap>({})
+
+  const toggleFav = (item: AniListItem) => {
+    if (favedMap.hasOwnProperty(item.id)) {
+      const clone = {...favedMap}
+      delete clone[item.id]
+      setFavedMap(clone)
+    } else {
+      setFavedMap({...favedMap, [item.id]: item})
+    }
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -26,8 +38,17 @@ export default function Test() {
         <Button disabled={currentTab === MainTabs.Faved} onClick={() => setCurrentTab(MainTabs.Faved)}>Faved</Button>
       </div>
 
-      <div className='border border-gray-600 p-4 flex flex-col space-y-4'>
-        {currentTab === MainTabs.Search ? <SearchContainer /> : <FavsContainer />}
+      <div className='border border-gray-600 p-4 flex flex-col'>
+        <SearchContainer
+          className={`${currentTab === MainTabs.Search ? '' : 'hidden'}`}
+          favedMap={favedMap}
+          toggleFav={toggleFav}
+          />
+        <FavsContainer
+          className={`${currentTab === MainTabs.Faved ? '' : 'hidden'}`}
+          favedMap={favedMap}
+          toggleFav={toggleFav}
+        />
       </div>
     </main>
     </QueryClientProvider>

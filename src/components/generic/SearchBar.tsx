@@ -1,12 +1,13 @@
-import { FaSearch, FaTimes, FaSpinner } from 'react-icons/fa'
+import { FaSearch, FaTimes } from 'react-icons/fa'
+import { CgSpinner } from "react-icons/cg"
 
 import debounce from 'lodash.debounce'
 import { useState, useCallback, useRef, useEffect } from 'react'
 
 interface SearchBarProps {
   value?: string,
-  isLoading?: Boolean,
-  onChange?: Function
+  isLoading?: boolean,
+  onChange?: (query: string) => void
 }
 
 const DEBOUNCE_TIMEOUT = 300
@@ -53,9 +54,9 @@ export default function SearchBar({ value, onChange, isLoading }: SearchBarProps
         <FaSearch />
       </div>
 
-      {value ? <div className='absolute top-0 right-0 h-full flex items-center p-2.5 cursor-pointer' onClick={e => handleChange('')}>
-        {isLoading ? <FaSpinner className='animate-spin' /> : <FaTimes />}
-      </div> : ''}
+      {value ? <button disabled={isLoading} className='absolute top-0 right-0 h-full flex items-center p-2.5 cursor-pointer' onClick={e => handleChange('')}>
+        {isLoading ? <CgSpinner className='animate-spin' /> : <FaTimes />}
+      </button> : ''}
     </div>
   )
 }
