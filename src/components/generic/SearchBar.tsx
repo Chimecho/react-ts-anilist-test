@@ -10,14 +10,14 @@ interface SearchBarProps {
 
 const DEBOUNCE_TIMEOUT = 300
 
-export default function SearchBar(props: SearchBarProps) {
-  const [internalQuery, setInternalQuery] = useState(props.value)
+export default function SearchBar({ value, onChange }: SearchBarProps) {
+  const [internalQuery, setInternalQuery] = useState(value)
   
   const inputRef = useRef<HTMLInputElement>(null)
 
   const debouncedEmit = useCallback(
     debounce((query: string): void => {
-      props.onChange?.(query)
+      onChange?.(query)
     }, DEBOUNCE_TIMEOUT)
   , [])
 
@@ -28,7 +28,7 @@ export default function SearchBar(props: SearchBarProps) {
       debouncedEmit(query)
     } else {
       debouncedEmit.cancel()
-      props.onChange?.(query)
+      onChange?.(query)
       inputRef.current?.focus()
     }
   }
@@ -41,7 +41,7 @@ export default function SearchBar(props: SearchBarProps) {
     <div className='relative'>
       <input
         ref={inputRef}
-        className={`w-full border border-gray-600 rounded-sm bg-neutral-900 h-9 pl-10 ${props.value ? 'pr-10' : ''}`}
+        className={`w-full border border-gray-600 rounded-sm bg-neutral-900 h-9 pl-10 ${value ? 'pr-10' : ''}`}
         type='text'
         onChange={e => handleChange(e.target.value)}
         placeholder='Search'
@@ -52,7 +52,7 @@ export default function SearchBar(props: SearchBarProps) {
         <FaSearch />
       </div>
 
-      {props.value ? <div className='absolute top-0 right-0 h-full flex items-center p-2.5 cursor-pointer' onClick={e => handleChange('')}>
+      {value ? <div className='absolute top-0 right-0 h-full flex items-center p-2.5 cursor-pointer' onClick={e => handleChange('')}>
         <FaTimes />
       </div> : ''}
     </div>

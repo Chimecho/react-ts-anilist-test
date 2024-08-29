@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/lodash.debounce": "^4.0.9",
+    "graphql-request": "^7.1.0",
     "lodash.debounce": "^4.0.8",
     "next": "14.2.7",
     "react": "^18",

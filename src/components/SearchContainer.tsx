@@ -1,17 +1,26 @@
 import SearchBar from '@/components/generic/SearchBar'
 import AniCard from '@/components/AniCard'
 
-import { useState } from 'react'
+import { useSearchPaginated } from '@/api/anilist'
+
+import { useEffect, useState } from 'react'
+import { useQuery } from 'react-query'
 
 export default function SearchContainer() {
   const [query, setQuery] = useState('')
+
+  const { data, error, isLoading, refetch } = useSearchPaginated({ query })
+
+  useEffect(() => {
+    refetch()
+  }, [query, refetch])
 
   return (
     <>
       <SearchBar value={query} onChange={setQuery} />
 
-      <div className='grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4'>
-        {'.'.repeat(40).split('').map((card, idx) => (<AniCard key={idx} />))}
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4'>
+        {data?.media.map(item => (<AniCard key={item.id} item={item} />))}
       </div>
     </>
   )

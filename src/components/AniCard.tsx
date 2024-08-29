@@ -1,19 +1,29 @@
 import Image from "next/image"
 
-export default function AniCard () {
+import { AniListItem } from "@/api/anilist/types"
+
+interface AniCardProps {
+  item: AniListItem
+}
+
+export default function AniCard ({ item }: AniCardProps) {
+  const title = item.title.english || item.title.romaji
+
   return (
     <div className='flex md:flex-col border border-gray-700 rounded-sm'>
-      <div className='flex justify-center flex-shrink-0'>
+      <div className='relative flex justify-center flex-shrink-0 w-52 md:w-full h-80'>
         <Image
-          src='https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx103526-yhlEtUTszUNw.jpg'
-          alt='poster'
-          width={185}
-          height={165}
+          src={ item.coverImage.large || item.coverImage.medium }
+          alt={title}
+          width={0}
+          height={0}
+          layout='fill'
+          objectFit='contain'
         />
       </div>
-      <div className='bg-neutral-900 p-2.5 text-sm flex-grow space-y-4 overflow-hidden'>
-        <div className='text-base truncate'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos voluptatum illum in molestias natus rerum doloremque dolorum aliquam eum eius, laboriosam quo impedit asperiores dignissimos numquam, qui est modi? Laboriosam? name</div>
-        <div className='text-gray-400'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consectetur dolore mollitia eaque officiis doloremque vero reprehenderit, blanditiis itaque magni, iusto aut recusandae dolores temporibus ipsam, iure explicabo minima. Alias, esse!</div>
+      <div className='bg-neutral-900 p-2.5 text-sm flex-grow space-y-4 max-h-full max-h-80 md:max-h-56 flex flex-col overflow-hidden'>
+        <div className='text-base truncate max-w-full flex-shrink-0' title={title}>{title}</div>
+        <div className='text-gray-400 overflow-auto' dangerouslySetInnerHTML={{__html: item.description}}></div> {/* I know this shouldn't be done without sanitizing it and etc, but some item descriptions use html tags and look awful as plain text */}
       </div>
     </div>
   )
