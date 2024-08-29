@@ -24,7 +24,7 @@ interface PageResult {
   Page: PageEntry
 }
 
-const call = (params: Params): CancellableRequest<PageEntry> => {
+const useCall = (params: Params): CancellableRequest<PageEntry> => {
   const { page = 1, perPage = 30, query } = params
 
   const queryClient = useQueryClient()
@@ -90,4 +90,4 @@ const call = (params: Params): CancellableRequest<PageEntry> => {
   }
 }
 
-export default call
+export default useCall
