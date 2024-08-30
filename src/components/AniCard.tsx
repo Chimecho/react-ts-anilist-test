@@ -18,6 +18,16 @@ export default function AniCard ({ item, isFav, toggleFav }: AniCardProps) {
   return (
     <div className='relative flex md:flex-col border border-gray-700 rounded-sm transition-transform' style={{transform: showMoreInfo ? 'rotate3d(0, 1, 0, 180deg)' : ''}}>
       <div className='relative flex justify-center flex-shrink-0 w-52 md:w-full h-80 cursor-pointer' onClick={() => setShowMoreInfo(!showMoreInfo)}>
+        <div className='absolute top-0 left-0 w-full h-full overflow-hidden'>
+          <Image
+            src={ item.coverImage.large || item.coverImage.medium }
+            alt={title}
+            fill
+            className='object-cover blur-md brightness-75 filter-blur'
+            sizes='50vw'
+          />
+        </div>
+
         <Image
           src={ item.coverImage.large || item.coverImage.medium }
           alt={title}
